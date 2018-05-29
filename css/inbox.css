@@ -15,8 +15,44 @@ html,body {
   padding-right: 0 !important;
   width: calc(100% + 11px);
 }
+.is-bulleted {
+  list-style: square;
+  padding-left: 15px;
+}
 .main {
   padding: 20px;
+}
+a {
+  color: #ff3860;
+  text-decoration: underline;
+}
+a:hover {
+  text-decoration: underline;
+  color: #b20c2e;
+}
+hr {
+  background-color: #f6cbcb;
+}
+.quote {
+  border-left: solid 5px #ff3860;
+  padding-left: 10px;
+  background-color: #ffe7e7;
+}
+h1 {
+  color: #ff3860;
+  font-size: 300%;
+}
+h2 {
+  color: #e2123c;
+  font-size: 200%;
+}
+h3 {
+  color: #b20c2e;
+  font-size: 150%;
+}
+h4 {
+  color: #87051f;
+  font-size: 110%;
 }
 .nav.is-dark {
   background-color: #232B2D;

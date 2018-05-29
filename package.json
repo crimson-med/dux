@@ -1,0 +1,27 @@
+{
+  "name": "dux",
+  "version": "1.0.0",
+  "description": "Dux is a converter from markdown to ready to deploy website for documentation.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/crimson-med/dux.git"
+  },
+  "keywords": [
+    "mardown",
+    "website",
+    "parser",
+    "converter",
+    "deploy",
+    "documentation"
+  ],
+  "author": "Mederic Burlet",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/crimson-med/dux/issues"
+  },
+  "homepage": "https://github.com/crimson-med/dux#readme"
+}

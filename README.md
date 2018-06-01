@@ -10,6 +10,15 @@ Dux is a converter from markdown to ready to deploy website for documentation.
 
 By default the inline code is javascript and not changeable
 
+# To Do
+
+ - [ ] Handle empty `parsedCode`
+ - [ ] Change css to SASS
+ - [ ] Add Is-Active to menu on `navigateContent`
+ - [ ] Review template for menu to add ID of nav-item
+ - [ ] CLI Integration (change color schemes)
+ - [ ] Code Clean UP
+
 # Future implementation
 
  - tables

@@ -1,3 +1,3 @@
-# Getting Started
+# random example
 
 > Hello this is a quote woohooo

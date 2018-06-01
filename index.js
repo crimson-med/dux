@@ -30,7 +30,8 @@ const orderedListRegex = /(\n\s*([0-9]+\.)\s.*)+/g;
 const paragraphRegex = /([^<>]+)(?![^<>]*(?:>|<\/))/g;
 // Replacer functions for Markdown
 const codeBlockReplacer = function(fullMatch){
-	return '\n<pre><code>' + fullMatch.replaceAll('```','') + '</code></pre>';
+	// return '\n<pre><code>' + fullMatch.replaceAll('```','') + '</code></pre>';
+  return ''
 }
 const inlineCodeReplacer = function(fullMatch, tagStart, tagContents){
 	return '<pre><code>' + tagContents + '</code></pre>';
@@ -108,30 +109,101 @@ const replaceMarkdown = function(str) {
     )))
 	))));
 }
+const getCodeBlock = function(str) {
+  const allCodeBlocks = [];
+  let m;
+  do {
+    m = codeBlockRegex.exec(str);
+    if (m) {
+        // console.log(m[0]);
+        allCodeBlocks.push(m[0]);
+    }
+  } while (m);
+  return allCodeBlocks
+  // const replaceCodeBlocks = replaceRegex(codeBlockRegex, codeBlockReplacer);
+}
 // Parser for Markdown (fixes code, adds empty lines around for parsing)
 // Usage: parseMarkdown(strVar)
 const parseMarkdown = function(str) {
+  const allCodeBlocks = getCodeBlock(str);
+  let parsedMarkdown = fixCodeBlocks(replaceMarkdown('\n' + str + '\n')).trim();
+  // console.log(parsedMarkdown);
+  const result = {
+    parsedCode: allCodeBlocks,
+    parsedMarkdown: parsedMarkdown,
+  }
 	// return fixCodeBlocks(replaceMarkdown('\n' + str + '\n')).trim();
-  return replaceMarkdown('\n' + str + '\n').trim();
+  return result
 }
 module.exports = {
 
+
+
   test() {
-    fs.readdir(testFolder, function(err, list) {
-      list.filter(extension).forEach(function(value) {
-        fs.readFile(testFolder + value, 'utf8', function (err,data) {
-          if (err) {
-            return console.log(err);
-          }
-          var result = parseMarkdown(data)
-          var res = value.replace(".md", ".html");
-          fs.writeFile(res, result, 'utf8', function (err) {
-             if (err) return console.log(err);
-          });
+    const menuItem = fs.readFileSync("./templates/body_menu.html", "utf8");
+    const templateFolder = './templates/';
+    const finalMenu = [];
+    const finalData = [];
+    const allFiles = fs.readdirSync(testFolder).filter(extension);
+    allFiles.forEach(function(value, index) {
+      const dat = fs.readFileSync(testFolder + value, 'utf8');
+      //console.log(dat);
+      const dataObject = {};
+      dataObject.id = index;
+      dataObject.name = value.replace(".md", "");
+      const result = parseMarkdown(dat);
+      dataObject.parsedMarkdown = result.parsedMarkdown;
+      dataObject.parsedCode = result.parsedCode;
+      let temp = menuItem;
+      temp = temp.replace('***', index);
+      temp = temp.replace("{}", dataObject.name);
+      finalMenu.push(temp);
+      finalData.push(dataObject);
+      /*fs.readFile(testFolder + value, 'utf8', function (err,data) {
+        if (err) {
+          return console.log(err);
+        }
+        c
+        var res = value.replace(".md", ".html");
+        fs.writeFile(res, result, 'utf8', function (err) {
+           if (err) return console.log(err);
         });
-        console.log(value);
-        // parseMarkdown(strVar)
-      });
+        return (null, dataObject);
+      }); */
+      // console.log(finalMenu)
+      // parseMarkdown(strVar)
     });
+    const headerStart = fs.readFileSync(templateFolder + 'body_header.html', 'utf8');
+    let menu = '';
+    for (let i = 0; i < finalMenu.length; i += 1) {
+      menu += finalMenu[i];
+    }
+    const headerEnd = fs.readFileSync(templateFolder + 'body_header_end.html', 'utf8');
+    let bodyDux = '';
+    let codeDux = '';
+    for (let i = 0; i < finalData.length; i += 1) {
+      let content = fs.readFileSync(templateFolder + 'body_tab_content.html', 'utf8');
+      let code = fs.readFileSync(templateFolder + 'body_tab_code.html', 'utf8');
+      if (i === 0) {
+        content = content.replace('///','');
+        code = code.replace('///','');
+      } else {
+        content = content.replace('///','is-hidden');
+        code = code.replace('///','is-hidden');
+      }
+      content = content.replace('***',finalData[i].id);
+      content = content.replace('{}',finalData[i].name);
+      content = content.replace('[]',finalData[i].parsedMarkdown);
+      code = code.replace('***',finalData[i].id);
+      code = code.replace('[]',finalData[i].parsedCode);
+      bodyDux += content;
+      codeDux += code;
+    }
+    const footer = fs.readFileSync(templateFolder + 'footer.html', 'utf8');
+    const final = headerStart + menu + headerEnd + bodyDux + codeDux + footer;
+    fs.writeFileSync('finaleindex.html', final, 'utf8');
+    console.log('written');
+    // console.log(menu);
+    // console.log(JSON.stringify(finalData));
   }
 };

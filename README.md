@@ -6,9 +6,14 @@ Dux is a converter from markdown to ready to deploy website for documentation.
 
 ![Dux Design](img/design.png)
 
+# Notes
+
+By default the inline code is javascript and not changeable
+
 # Future implementation
 
  - tables
+ - .dux extension for more customizable .md
  - cards (custom example)
 
 ```html

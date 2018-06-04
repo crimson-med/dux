@@ -3,9 +3,12 @@
   "version": "1.0.0",
   "description": "Dux is a converter from markdown to ready to deploy website for documentation.",
   "main": "index.js",
+  "bin": {
+    "dux": "src/cli.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "start": "node src/cli.js"
   },
   "repository": {
     "type": "git",
@@ -24,5 +27,8 @@
   "bugs": {
     "url": "https://github.com/crimson-med/dux/issues"
   },
-  "homepage": "https://github.com/crimson-med/dux#readme"
+  "homepage": "https://github.com/crimson-med/dux#readme",
+  "dependencies": {
+    "yargs": "^11.0.0"
+  }
 }

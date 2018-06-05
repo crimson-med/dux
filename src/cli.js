@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 // const colors = require("colors/safe");
+const testFolder = './../md/';
+const DuxEngine = require('./dux');
 const options = require( "yargs" )
     .usage( "Usage: $0 <project> <directory> [-t \"theme\"]" )
     .command( "project", "project name", { alias: "project" } )
@@ -16,7 +18,8 @@ const options = require( "yargs" )
 // Get the directory from the first parameter
 var projectName = options._[ 0 ];
 console.log( "projectName:", projectName );
-
+let temp = new DuxEngine(projectName, testFolder);
+temp.start();
 // Make "get" the default if no verb is specified
 //if ( !options.get && !options.post && !options.put && !options.del ) {
 //    options.get = true;

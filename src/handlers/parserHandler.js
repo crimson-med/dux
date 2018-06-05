@@ -113,14 +113,16 @@ const getCodeBlock = function(str) {
 }
 // Parser for Markdown (fixes code, adds empty lines around for parsing)
 // Usage: parseMarkdown(strVar)
-const parseMarkdown = function(str) {
-  const allCodeBlocks = getCodeBlock(str);
-  let parsedMarkdown = fixCodeBlocks(replaceMarkdown('\n' + str + '\n')).trim();
-  // console.log(parsedMarkdown);
-  const result = {
-    parsedCode: allCodeBlocks,
-    parsedMarkdown: parsedMarkdown,
+module.exports = {
+  parseMarkdown: function (str) {
+    const allCodeBlocks = getCodeBlock(str);
+    let parsedMarkdown = fixCodeBlocks(replaceMarkdown('\n' + str + '\n')).trim();
+    // console.log(parsedMarkdown);
+    const result = {
+      parsedCode: allCodeBlocks,
+      parsedMarkdown: parsedMarkdown,
+    }
+  	// return fixCodeBlocks(replaceMarkdown('\n' + str + '\n')).trim();
+    return result
   }
-	// return fixCodeBlocks(replaceMarkdown('\n' + str + '\n')).trim();
-  return result
 }

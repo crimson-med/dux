@@ -1,14 +1,16 @@
 const fs = require("fs");
 const path = require("path");
+const colors = require("colors/safe");
 const parserHandler = require("./handlers/parserHandler");
+const duxTemplate = require("./models/duxTemplate");
+
 const testFolder = './md/';
 function extension(element) {
   var extName = path.extname(element);
-  return extName === '.md' // change to whatever extensions you want
+  return extName === '.md'
 };
 class DuxEngine {
   constructor(projectName, targetFolder) {
-    // Matchmaking construction
     this.projectName = projectName;
     this.targetFolder = targetFolder;
     this.templateFolder = './templates/';
@@ -19,7 +21,7 @@ class DuxEngine {
   }
   start() {
     const allFiles = fs.readdirSync(testFolder).filter(extension);
-    allFiles.forEach(function(value, index) {
+    allFiles.forEach((value, index) => {
       const dat = fs.readFileSync(testFolder + value, 'utf8');
       const dataObject = {};
       dataObject.id = index;
@@ -27,13 +29,15 @@ class DuxEngine {
       const result = parserHandler.parseMarkdown(dat);
       dataObject.parsedMarkdown = result.parsedMarkdown;
       dataObject.parsedCode = result.parsedCode;
-      let temp = menuItem;
+      let temp = this.menuItem;
       temp = temp.replace('***', index);
       temp = temp.replace("{}", dataObject.name);
       this.finalMenu.push(temp);
       this.finalData.push(dataObject);
     });
-    console.log(JSON.stringify(this.finalMenu));
-    console.log(JSON.stringify(this.finalData));
+    const currentTemplate = new duxTemplate(this.finalMenu, this.finalData);
+    currentTemplate.render().then(() => {
+      console.log(colors.cyan(`Project was generated in: ${path.resolve('./duxOutput')}`))
+    })
   }
 }module.exports = DuxEngine

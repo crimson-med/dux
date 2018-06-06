@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// const colors = require("colors/safe");
+const colors = require("colors/safe");
 const testFolder = './../md/';
 const DuxEngine = require('./dux');
 const options = require( "yargs" )
@@ -17,30 +17,13 @@ const options = require( "yargs" )
     .argv;
 // Get the directory from the first parameter
 var projectName = options._[ 0 ];
-console.log( "projectName:", projectName );
+console.log(colors.green(' ____  __  __  _  _ '));
+console.log(colors.green('(  _ \\(  )(  )( \\/ )'));
+console.log(colors.green(' )(_) ))(__)(  )  ( '));
+console.log(colors.green("(____/(______)(_/\\_)"));
+console.log(colors.cyan("Generating: ", projectName ));
 let temp = new DuxEngine(projectName, testFolder);
-temp.start();
 // Make "get" the default if no verb is specified
 //if ( !options.get && !options.post && !options.put && !options.del ) {
 //    options.get = true;
 //}
-
-//console.log( "options:", options );
-/* else if (argv.tool === "help") {
-  console.log("\n ----------------------------------------------");
-  console.log(colors.red(" Dux"));
-  console.log(" ----------------------------------------------");
-  console.log(colors.green("\n  dux --tool type --optionalToolParameter optionalToolParameterValue"));
-  console.log("\n ----------------------------------------------");
-  console.log(colors.red(" Tool Types:"));
-  console.log(" ----------------------------------------------");
-  console.log("  --- "+colors.cyan("help")+" \n  --- "+colors.cyan("proxy"));
-  console.log("  ------ "+colors.cyan("proxyNumber")+" = number of proxy to find eg: 5");
-  console.log("  ------ "+colors.cyan("country")+" (optional) = two letter string eg: fr");
-  console.log("\n ----------------------------------------------");
-  console.log(colors.red(" Command examples:"));
-  console.log(" ----------------------------------------------");
-  console.log(colors.green("  crimson-tools --tool help"));
-  console.log(colors.green("  crimson-tools --tool proxy --proxyNumber 5"));
-  console.log(colors.green("  crimson-tools --tool proxy --proxyNumber 5 --country fr"));
-} */

@@ -12,12 +12,12 @@ By default the inline code is javascript and not changeable
 
 # To Do
 
- - [ ] Handle empty `parsedCode`
+ - [X] Handle empty `parsedCode`
  - [ ] Change css to SASS
  - [ ] Add Is-Active to menu on `navigateContent`
  - [ ] Review template for menu to add ID of nav-item
- - [ ] CLI Integration (change color schemes)
- - [ ] Code Clean UP
+ - [X] CLI Integration (change color schemes)
+ - [X] Code Clean UP
 
 # Future implementation
 

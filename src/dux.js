@@ -35,7 +35,7 @@ class DuxEngine {
       this.finalMenu.push(temp);
       this.finalData.push(dataObject);
     });
-    const currentTemplate = new duxTemplate(this.finalMenu, this.finalData);
+    const currentTemplate = new duxTemplate(this.finalMenu, this.finalData, this.projectName);
     currentTemplate.render().then(() => {
       console.log(colors.cyan(`Project was generated in: ${path.resolve('./duxOutput')}`))
     })

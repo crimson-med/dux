@@ -29,7 +29,7 @@ const imageReplacer = function(fullMatch, tagTitle, tagURL){
 	return '<img src="' + tagURL + '" alt="' + tagTitle + '" />';
 }
 const linkReplacer = function(fullMatch, tagTitle, tagURL){
-	return '<a href="' + tagURL + '">' + tagTitle + '</a>';
+	return '<a target="_blank" href="' + tagURL + '">' + tagTitle + '</a>';
 }
 const headingReplacer = function(fullMatch, tagStart, tagContents){
 	return '\n<h' + (tagStart.trim().length + 1) + '>' + tagContents + '</h' + (tagStart.trim().length + 1) + '>';

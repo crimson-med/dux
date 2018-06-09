@@ -1,6 +1,6 @@
 ![Dux Logo](img/dux.jpg)
 
-Dux (/dʌks, dʊks/; plural: ducēs)
+**Dux** (/dʌks, dʊks/; plural: ducēs)
 
 Dux is a converter from markdown to ready to deploy websites for documentation.
 

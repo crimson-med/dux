@@ -36,6 +36,8 @@ Markdown makes documentation writting very easy and simple and this can also be 
  - .dux extension for more customizable .md
  - cards (custom example)
 
+![Dux Card](img/card.png)
+
 ```html
 <div class="box message-preview">
   <div class="top">

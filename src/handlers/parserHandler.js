@@ -5,7 +5,7 @@ const replaceRegex = function(regex, replacement){
 }
 // Regular expressions for Markdown (a bit strict, but they work)
 const codeBlockRegex = /```[a-z]*\n[\s\S]*?\n```/g;
-const inlineCodeRegex = /(`)(.*?)\1/g;
+const inlineCodeRegex = /\`(.*)\`/g;
 const imageRegex = /!\[([^\[]+)\]\(([^\)]+)\)/g;
 const linkRegex = /\[([^\[]+)\]\(([^\)]+)\)/g;
 const headingRegex = /\n(#+\s*)(.*)/g;
@@ -15,15 +15,10 @@ const blockquoteRegex = /\n(&gt;|\>)(.*)/g;
 const horizontalRuleRegex = /\n((\-{3,})|(={3,}))/g;
 const unorderedListRegex = /(\n\s*(\-|\+)\s.*)+/g;
 const orderedListRegex = /(\n\s*([0-9]+\.)\s.*)+/g;
-//const paragraphRegex = /\n+(?!<pre><code>)(?!<h)(?!<ul>)(?!<blockquote)(?!<hr)(?!\t)([^\n]+)\n/g;
 const paragraphRegex = /([^<>]+)(?![^<>]*(?:>|<\/))/g;
 // Replacer functions for Markdown
 const codeBlockReplacer = function(fullMatch){
-	// return '\n<pre><code>' + fullMatch.replaceAll('```','') + '</code></pre>';
   return ''
-}
-const inlineCodeReplacer = function(fullMatch, tagStart, tagContents){
-	return '<pre><code>' + tagContents + '</code></pre>';
 }
 const imageReplacer = function(fullMatch, tagTitle, tagURL){
 	return '<img src="' + tagURL + '" alt="' + tagTitle + '" />';
@@ -60,6 +55,17 @@ const emptyLineReplacer = function (myStr){
   const res = myStr.replace(/^\s*[\r\n]/gm, "")
   return res
 }
+const inlineCodeReplacer = function (myStr) {
+  // Longer code to prepare for language specification implementation
+  var myRegexp = /\`(.*)\`/g;
+  match = myRegexp.exec(myStr);
+  while (match != null) {
+    var result = match[0].substring(1, match[0].length-1);
+    myStr = myStr.replace(match[0], '\n<pre class="language-js"><code>' + result + '</code></pre>')
+    match = myRegexp.exec(myStr);
+  }
+  return myStr
+}
 const paragraphReplacer = function(fullMatch, tagContents){
   if (tagContents.length > 1){
     return '<p>' + tagContents + '</p>';
@@ -68,7 +74,6 @@ const paragraphReplacer = function(fullMatch, tagContents){
 }
 // Rules for Markdown parsing (use in order of appearance for best results)
 const replaceCodeBlocks = replaceRegex(codeBlockRegex, codeBlockReplacer);
-const replaceInlineCodes = replaceRegex(inlineCodeRegex, inlineCodeReplacer);
 const replaceImages = replaceRegex(imageRegex, imageReplacer);
 const replaceLinks = replaceRegex(linkRegex, linkReplacer);
 const replaceHeadings = replaceRegex(headingRegex, headingReplacer);
@@ -88,12 +93,12 @@ const codeBlockFixer = function(fullMatch, tagStart, tagContents, lastMatch, tag
 }
 const fixCodeBlocks = replaceRegex(codeBlockFixRegex, codeBlockFixer);
 // Replacement rule order function for Markdown
-// Do not use as-is, prefer parseMarkdown as seen below
+// Prefer parseMarkdown as seen below
 const replaceMarkdown = function(str) {
   return replaceParagraphs(emptyLineReplacer(replaceOrderedLists(replaceUnorderedLists(
 		replaceHorizontalRules(replaceBlockquotes(replaceceStrikethrough(
 			replaceBoldItalics(replaceHeadings(replaceLinks(replaceImages(
-				replaceInlineCodes(replaceCodeBlocks(str))
+				inlineCodeReplacer(replaceCodeBlocks(str))
       ))))
     )))
 	))));
@@ -104,12 +109,10 @@ const getCodeBlock = function(str) {
   do {
     m = codeBlockRegex.exec(str);
     if (m) {
-        // console.log(m[0]);
         allCodeBlocks.push(m[0]);
     }
   } while (m);
   return allCodeBlocks
-  // const replaceCodeBlocks = replaceRegex(codeBlockRegex, codeBlockReplacer);
 }
 // Parser for Markdown (fixes code, adds empty lines around for parsing)
 // Usage: parseMarkdown(strVar)
@@ -117,12 +120,10 @@ module.exports = {
   parseMarkdown: function (str) {
     const allCodeBlocks = getCodeBlock(str);
     let parsedMarkdown = fixCodeBlocks(replaceMarkdown('\n' + str + '\n')).trim();
-    // console.log(parsedMarkdown);
     const result = {
       parsedCode: allCodeBlocks,
       parsedMarkdown: parsedMarkdown,
     }
-  	// return fixCodeBlocks(replaceMarkdown('\n' + str + '\n')).trim();
     return result
   }
 }

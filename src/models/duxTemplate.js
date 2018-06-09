@@ -9,13 +9,14 @@ const mkdirSync = function (dirPath) {
 }
 class duxTemplate {
   constructor(finalMenu, finalData, projectName) {
+    //Get main data
     this.finalMenu = finalMenu;
     this.finalData = finalData;
-    this.templateFolder = './src/templates/';
-    this.headerStart = fs.readFileSync(this.templateFolder + 'body_header.html', 'utf8');
+    this.templateFolder = path.resolve('./src/templates/');
+    this.headerStart = fs.readFileSync(this.templateFolder + '/body_header.html', 'utf8');
     this.headerStart = this.headerStart.replace('Project Name', projectName);
-    this.headerEnd = fs.readFileSync(this.templateFolder + 'body_header_end.html', 'utf8');
-    this.footer = fs.readFileSync(this.templateFolder + 'footer.html', 'utf8');
+    this.headerEnd = fs.readFileSync(this.templateFolder + '/body_header_end.html', 'utf8');
+    this.footer = fs.readFileSync(this.templateFolder + '/footer.html', 'utf8');
   }
 
   emptyLineReplacer(myStr) {
@@ -34,7 +35,7 @@ class duxTemplate {
   renderBody() {
     let duxBody = '';
     for (let i = 0; i < this.finalData.length; i += 1) {
-      let content = fs.readFileSync(this.templateFolder + 'body_tab_content.html', 'utf8');
+      let content = fs.readFileSync(this.templateFolder + '/body_tab_content.html', 'utf8');
       if (i === 0) {
         content = content.replace('///','');
       } else {
@@ -54,8 +55,8 @@ class duxTemplate {
   renderCode() {
     let duxCode = '';
     for (let i = 0; i < this.finalData.length; i += 1) {
-      let code = fs.readFileSync(this.templateFolder + 'body_tab_code.html', 'utf8');
-      let wrapper = fs.readFileSync(this.templateFolder + 'body_tab_code_wrapper.html', 'utf8');
+      let code = fs.readFileSync(this.templateFolder + '/body_tab_code.html', 'utf8');
+      let wrapper = fs.readFileSync(this.templateFolder + '/body_tab_code_wrapper.html', 'utf8');
       if (i === 0) {
         code = code.replace('///','');
       } else {

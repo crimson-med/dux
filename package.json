@@ -1,6 +1,6 @@
 {
   "name": "dux-documentation",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Dux is a converter from markdown to ready to deploy website for documentation.",
   "main": "index.js",
   "bin": {

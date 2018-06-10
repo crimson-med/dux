@@ -1,4 +1,4 @@
-![Dux Logo](img/dux.jpg)
+![Dux Logo](./img/dux.jpg)
 
 **Dux** (/dʌks, dʊks/; plural: ducēs)
 
@@ -43,6 +43,9 @@ You can then execute Dux with:
 dux <projectName> <projectDirectory>
 ```
 
+Render example:
+
+http://medericburlet.com/dux/
 
 # Design Example
 

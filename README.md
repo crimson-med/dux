@@ -1,4 +1,4 @@
-![Dux Logo](./img/dux.jpg)
+![Dux Logo](https://raw.githubusercontent.com/crimson-med/dux/master/img/dux.jpg?token=Aa-t8qcdM9leZOWpCCKIvPCjwnPQ9HDnks5bJkbewA%3D%3D)
 
 **Dux** (/dʌks, dʊks/; plural: ducēs)
 
@@ -49,7 +49,7 @@ http://medericburlet.com/dux/
 
 # Design Example
 
-![Dux Design](img/design.png)
+![Dux Design](https://raw.githubusercontent.com/crimson-med/dux/master/img/design.png?token=Aa-t8sG_TT-2kcdAO_C0PlMgUFMhPwYIks5bJkbzwA%3D%3D)
 
 
 # To Do
@@ -65,7 +65,7 @@ http://medericburlet.com/dux/
  - .dux extension for more customizable .md
  - cards (custom example)
 
-![Dux Card](img/card.png)
+![Dux Card](https://raw.githubusercontent.com/crimson-med/dux/master/img/card.png?token=Aa-t8nUW8MAWzHUhOVRLPqj0G3jT8NWPks5bJkbzwA%3D%3D)
 
 ```html
 <div class="box message-preview">

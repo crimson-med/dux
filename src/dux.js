@@ -12,15 +12,18 @@ function extension(element) {
 class DuxEngine {
   constructor(projectName, targetFolder) {
     this.projectName = projectName;
-    this.targetFolder = targetFolder;
-    this.templateFolder = './templates/';
-    this.menuItem = fs.readFileSync("./src/templates/body_menu.html", "utf8");
+    this.targetFolder = path.resolve(targetFolder);
+    this.menuItem = fs.readFileSync(path.resolve('./src/templates/body_menu.html'), "utf8");
     this.finalMenu = [];
     this.finalData = [];
     this.start();
   }
   start() {
-    const allFiles = fs.readdirSync(testFolder).filter(extension);
+    if (!fs.existsSync(this.targetFolder)) {
+      console.warn(colors.red(`\nCouldn't find the folder:\n${this.targetFolder}`));
+      return
+    }
+    const allFiles = fs.readdirSync(this.targetFolder).filter(extension);
     allFiles.forEach((value, index) => {
       const dat = fs.readFileSync(testFolder + value, 'utf8');
       const dataObject = {};
@@ -37,7 +40,8 @@ class DuxEngine {
     });
     const currentTemplate = new duxTemplate(this.finalMenu, this.finalData, this.projectName);
     currentTemplate.render().then(() => {
-      console.log(colors.cyan(`Project was generated in: ${path.resolve('./duxOutput')}`))
+      console.log('')
+      console.log(colors.cyan(`\n\n\nProject was generated in: ${path.resolve('./duxOutput')}\n\n`))
     })
   }
 }module.exports = DuxEngine

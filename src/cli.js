@@ -2,6 +2,7 @@
 const colors = require("colors/safe");
 const testFolder = './../md/';
 const DuxEngine = require('./dux');
+const path = require("path");
 const options = require( "yargs" )
     .usage( "Usage: $0 <project> <directory> [-t \"theme\"]" )
     .command( "project", "project name", { alias: "project" } )
@@ -17,12 +18,14 @@ const options = require( "yargs" )
     .argv;
 // Get the directory from the first parameter
 var projectName = options._[ 0 ];
+var projectFolder = options._[ 1 ];
+console.warn(path.resolve(projectFolder));
 console.log(colors.green(' ____  __  __  _  _ '));
 console.log(colors.green('(  _ \\(  )(  )( \\/ )'));
 console.log(colors.green(' )(_) ))(__)(  )  ( '));
 console.log(colors.green("(____/(______)(_/\\_)"));
-console.log(colors.cyan("Generating: ", projectName ));
-let temp = new DuxEngine(projectName, testFolder);
+console.log(colors.cyan("\n\nGenerating: ", projectName ));
+let temp = new DuxEngine(projectName, projectFolder);
 // Make "get" the default if no verb is specified
 //if ( !options.get && !options.post && !options.put && !options.del ) {
 //    options.get = true;

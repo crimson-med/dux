@@ -13,9 +13,35 @@ Markdown makes documentation writting very easy and simple and this can also be 
 # Things To Know
 
  - Each left menu item is equivalent to a `.md` file
- - The type of language for inline code is js
+ - The syntax highlight for inline code is js
  - If there is no Code Block design uses one main column
  - Generates a one page website in: duxOutput
+
+# Usage
+
+A simple command line will let you convert your directory into a beautiful documentation website.
+
+```
+npm start <projectName> <projectDirectory>
+```
+
+Example:
+
+```
+npm start DuxApi md
+```
+
+You can also install the npm package globally:
+
+```
+npm install -g dux-documentation
+```
+
+You can then execute Dux with:
+
+```
+dux <projectName> <projectDirectory>
+```
 
 
 # Design Example

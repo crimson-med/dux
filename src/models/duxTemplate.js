@@ -1,5 +1,7 @@
 const fs = require("fs");
 const path = require('path');
+const colors = require("colors/safe");
+const crimsonProgressBar = require("crimson-progressbar");
 const mkdirSync = function (dirPath) {
   try {
     fs.mkdirSync(dirPath)
@@ -26,7 +28,9 @@ class duxTemplate {
 
   renderMenu() {
     let duxMenu = '';
+    console.log(colors.green('\n1 - Rendering Menu...'));
     for (let i = 0; i < this.finalMenu.length; i += 1) {
+      crimsonProgressBar.renderProgressBar(i+1, this.finalMenu.length);
       duxMenu += this.finalMenu[i];
     }
     return duxMenu
@@ -34,6 +38,7 @@ class duxTemplate {
 
   renderBody() {
     let duxBody = '';
+    console.log(colors.green('\n2 - Rendering Body...'));
     for (let i = 0; i < this.finalData.length; i += 1) {
       let content = fs.readFileSync(this.templateFolder + '/body_tab_content.html', 'utf8');
       if (i === 0) {
@@ -48,12 +53,14 @@ class duxTemplate {
         content = content.replace('is-4', 'is-9');
       }
       duxBody += content;
+      crimsonProgressBar.renderProgressBar(i+1, this.finalData.length);
     }
     return duxBody;
   }
 
   renderCode() {
     let duxCode = '';
+    console.log(colors.green('\n2 - Rendering Code...'));
     for (let i = 0; i < this.finalData.length; i += 1) {
       let code = fs.readFileSync(this.templateFolder + '/body_tab_code.html', 'utf8');
       let wrapper = fs.readFileSync(this.templateFolder + '/body_tab_code_wrapper.html', 'utf8');
@@ -77,6 +84,7 @@ class duxTemplate {
       } else {
         duxCode += code;
       }
+      crimsonProgressBar.renderProgressBar(i+1, this.finalData.length);
     }
     return duxCode
   }

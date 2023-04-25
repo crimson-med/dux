@@ -30,6 +30,6 @@
   "homepage": "https://github.com/crimson-med/dux#readme",
   "dependencies": {
     "crimson-progressbar": "^1.2.0",
-    "yargs": "^11.0.0"
+    "yargs": "^17.7.1"
   }
 }
